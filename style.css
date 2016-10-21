@@ -8,15 +8,52 @@ and open the template in the editor.
     Author     : Qing_Zhou
 */
 .card {
+    text-align: center;
+    font-family: Roboto, sans-serif;
     background-color: white;
     margin: 40px auto;
-    padding: 20px;
-    width: 1200px;
-    height:600px;
+    padding: 30px;
+    width: 1100px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
 }
 .axis path, .axis line {
     fill: none;
     stroke: #000;
     
+}
+.note {
+    display:block;
+    margin:0 auto;
+    width:50%;
+    font-size:0.9em;
+}
+.month {
+    font-size:0.9em;
+}
+.tooltip {
+    position:absolute;
+    pointer-events: none;
+    width:auto;
+    height:auto;
+    text-align: center;
+    background:rgba(255,255,255,0.8);
+    opacity:0;
+    padding:10px;
+    border-radius: 10px;
+    box-shadow: 8px 9px 49px -6px rgba(0,0,0,0.75);
+
+}
+.mouse-on {
+    opacity:0.1;
+    stroke:black;
+}
+.mouse-off {
+    opacity:1;
+    stroke:transparent;
+}
+.temp {
+    font-size:0.9em;
+}
+.varTemp {
+    font-size:0.8em;
 }
