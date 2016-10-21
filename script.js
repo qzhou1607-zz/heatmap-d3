@@ -65,8 +65,25 @@ $.getJSON(url, function(jsonData) {
             })
             .attr("class","month")
             .style("text-anchor","end")
-            .attr("transform","translate(-6,0)");
-    
+            .attr("transform","translate(-6," + gridHeight/2 + ")");
+    //grid
+    var colorScale = d3.scale.quantile()
+            .domain([lowTemp+baseTemp,highTemp+baseTemp])
+            .range(colors);
+    var temps = chart.selectAll(".temp")
+            .data(monthlyVar)
+        .enter().append("rect")
+            .attr("width",gridWidth)
+            .attr("height",gridHeight)
+            .attr("x",function(d) {
+                return x(new Date(d.year,0));
+            })
+            .attr("y",function(d) {
+                return (d.month-1)*gridHeight;
+            })
+            .style("fill", function(d) {
+                return colorScale(d.variance + baseTemp);
+            });
 });
 
 //x axis
