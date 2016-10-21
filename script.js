@@ -7,12 +7,12 @@ var url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/m
 var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var colors = ["#F7FBFF", "#DEEBF7", "#C6DBEF", "#9ECAE1","#6BAED6","#4292C6", "#2171B5", "#08519C","#08306B"];
 var margin = {
-    top:20,
-    bottom:20,
+    top:10,
+    bottom:100,
     left:80,
-    right:20
+    right:50
 };
-var width = 1100 - margin.left - margin.right;
+var width = 1200 - margin.left - margin.right;
 var height = 550 - margin.top - margin.bottom;
 //json
 $.getJSON(url, function(jsonData) {
@@ -84,7 +84,22 @@ $.getJSON(url, function(jsonData) {
             .style("fill", function(d) {
                 return colorScale(d.variance + baseTemp);
             });
-            
+    //x axis label
+    chart.append("g")
+            .attr("transform","translate(" + (width/2) + "," + (height + 50) + ")")
+        .append("text")
+            .attr("class","x axis-label")
+            .text("Years")
+            .attr("text-anchor","middle");
+    
+    //y axis label
+    chart.append("g")
+            .attr("transform","translate(-60," + (height/2) +  ")")
+        .append("text")
+            .text("Month")
+            .attr("class","y axis-label")
+            .attr("text-anchor","middle")
+            .attr("transform","rotate(-90)");
             
     //tooltip
     var tooltip = d3.select(".tooltip");
@@ -107,6 +122,36 @@ $.getJSON(url, function(jsonData) {
         tooltip.transition().duration(100).style("opacity",0);
         d3.select(this).style("stroke","transparent");
         });
+    //legend
+    var legendWidth = 35;
+    var colorDigits = [0].concat(colorScale.quantiles());
+    var legend = chart.append("g")
+                        .attr("class","legend")
+                        .attr("transform","translate(" + (width - legendWidth * colors.length) + "," + (height + 50) + ")");
+    var legendGrid = legend.selectAll(".legend-grid")
+                            .data(colorDigits)
+                        .enter().append("rect")
+                            .attr("class","lengend-grid")
+                            .attr("width",legendWidth)
+                            .attr("height",gridHeight/2)
+                            .style("fill",function(d,i) {
+                                return colors[i];
+                            });
+    legendGrid.attr("transform",function(d,i) {
+        return "translate(" + legendWidth*i + ",0)";
+    });
+    legend.selectAll(".legend-text") 
+                .data(colorDigits)
+            .enter().append("text")
+                .attr("class","legend-text")
+                .text(function(d,i) {
+                    return d.toFixed(1);
+                })
+                .attr("text-anchor","middle")
+                .attr("transform",function(d,i) {
+                    return "translate(" + (legendWidth*i + legendWidth/2) + ",40)";
+                });
+    
 });
 
 //helper function

@@ -12,8 +12,8 @@ and open the template in the editor.
     font-family: Roboto, sans-serif;
     background-color: white;
     margin: 40px auto;
-    padding: 30px;
-    width: 1100px;
+    padding: 15px;
+    width: 1200px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
 }
 .axis path, .axis line {
@@ -56,4 +56,11 @@ and open the template in the editor.
 }
 .varTemp {
     font-size:0.8em;
+}
+.axis-label {
+    font-weight: bold;
+    font-size:1.3em;
+}
+.legend-text {
+    font-size:0.9em;
 }
